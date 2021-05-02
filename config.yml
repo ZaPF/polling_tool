@@ -10,7 +10,7 @@ django:
 databases:
   default:
     ENGINE: 'django.db.backends.sqlite3'
-    NAME: "BASE_DIR / 'db.sqlite3'"
+    NAME: 'db.sqlite3'
 oauth:
   url_whitelists:
     - 'http://localhost'
@@ -18,7 +18,7 @@ oauth:
   client_name: 'example'
   client_config:
     client_id: ''
-    client_secret: '',
+    client_secret: ''
     access_token_url: 'https://example.com/login/oauth/access_token'
     authorize_url: 'https://example.com/login/oauth/authorize'
     api_base_url: 'https://api.example.com/'

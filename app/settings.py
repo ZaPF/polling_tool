@@ -80,6 +80,10 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = cfg['databases']
+for db in DATABASES:
+    if DATABASES[db]['ENGINE'] == 'django.db.backends.sqlite3':
+        if DATABASES[db]['NAME'][0] != '/':
+            DATABASES[db]['NAME'] = BASE_DIR / DATABASES[db]['NAME']
 
 
 # Password validation
