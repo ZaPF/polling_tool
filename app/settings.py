@@ -12,20 +12,26 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 
+# Used for parsing config
+import yaml
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Read config
+with open(BASE_DIR / "config.yml", "r") as ymlfile:
+    cfg = yaml.load(ymlfile)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-yp&hf!xk!pybqiek@*r9cq*&0o1p$%80-_6_e!5w)f)_hdrigk'
+SECRET_KEY = cfg['django']['secret_key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = cfg['django']['debug']
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = cfg['django']['allowed_hosts']
 
 
 # Application definition
@@ -73,12 +79,7 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+DATABASES = cfg['databases']
 
 
 # Password validation
@@ -123,3 +124,10 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# OAuth Settings
+OAUTH_URL_WHITELISTS = cfg['oauth']['url_whitelists']
+
+OAUTH_CLIENT_NAME = cfg['oauth']['client_name']
+
+OAUTH_CLIENT = cfg['oauth']['client_config']
