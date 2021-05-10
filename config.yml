@@ -2,7 +2,7 @@ django:
   # Set to false in production!
   debug: true
   # Change in production and keep secret!
-  secret_key: 'django-insecure-yp&hf!xk!pybqiek@*r9cq*&0o1p$%80-_6_e!5w)f)_hdrigk'
+  secret_key: 'changeme'
   # HOST-Header of requests must match one of these
   allowed_hosts:
     - 'localhost'
@@ -12,18 +12,16 @@ databases:
     ENGINE: 'django.db.backends.sqlite3'
     NAME: 'db.sqlite3'
 oauth:
-  url_whitelists:
-    - 'http://localhost'
-    - 'http://127.0.0.1'
-  client_name: 'example'
+  url_whitelists: ['/polls/results']
+  client_name: 'zapf-auth'
   client_config:
-    client_id: ''
-    client_secret: ''
-    access_token_url: 'https://example.com/login/oauth/access_token'
-    authorize_url: 'https://example.com/login/oauth/authorize'
-    api_base_url: 'https://api.example.com/'
-    redirect_uri: 'https://example.org/oauth/callback'
+    client_id: 'changeme'
+    client_secret: 'changeme'
+    access_token_url: 'https://auth.zapf.in/oauth/token'
+    authorize_url: 'https://auth.zapf.in/oauth/authorize'
+    api_base_url: 'https://auth.zapf.in/api'
+    redirect_uri: 'http://127.0.0.1:8000/oauth/callback'
     client_kwargs:
-      scope: 'profile email'
+      scope: 'ownUserData registration uni_list'
       token_placement: 'header'
-    userinfo_endpoint: 'user'
+    userinfo_endpoint: 'api/me'

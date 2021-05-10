@@ -1,0 +1,21 @@
+<h1>Aktuell offene Abstimmungen</h1>
+<p>{{ message }}</p>
+{% if questions %}
+    <ul>
+    {% for question in questions %}
+        <li>{{ question.question_text }}
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+            <form action="{% url 'polls:vote' question.id %}" method="post">
+                {% csrf_token %}
+                {% for choice in question.choices.all %}
+                    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+                {% endfor %}
+                <input type="submit" value="Vote">
+            </form>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No results are available.</p>
+{% endif %}

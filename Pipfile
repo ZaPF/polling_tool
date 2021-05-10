@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 django = "*"
 authlib = "*"
+pyyaml = "*"
+requests = "*"
 
 [dev-packages]
 pylint = "*"

@@ -1,0 +1,50 @@
+<h1>Laufende Abstimmungen</h1>
+<p>{{ message }}</p>
+{% if current_questions %}
+    <p>
+    {% for question in current_questions %}
+        <h2>{{ question.question_text }}</h2>
+        {% if question.choices %}
+            <ul>
+                {% for choice in question.choices.all %}
+                    <li>{{ choice.votes.all | length }} | {{ choice.choice_text }}</li>
+                    {% if choice.votes %}
+                        <ul>
+                            {% for vote in choice.votes.all %}
+                                <li>{{ vote.uni }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endfor %}
+    </p>
+{% else %}
+    <p>No results are available.</p>
+{% endif %}
+
+<h1>Abgeschlossene Abstimmungen</h1>
+{% if questions %}
+    <p>
+    {% for question in questions %}
+        <h2>{{ question.question_text }}</h2>
+        {% if question.choices %}
+            <ul>
+                {% for choice in question.choices.all %}
+                    <li>{{ choice.votes.all | length }} | {{ choice.choice_text }}</li>
+                    {% if choice.votes %}
+                        <ul>
+                            {% for vote in choice.votes.all %}
+                                <li>{{ vote.uni }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endfor %}
+    </p>
+{% else %}
+    <p>No results are available.</p>
+{% endif %}
