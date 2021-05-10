@@ -25,7 +25,11 @@ def results(request):
         uni, created = Uni.objects.get_or_create(uni_id=request.session['uni'], defaults={'uni_name': request.session['unis'][str(request.session['uni'])]},)
 
     current_questions = [question for question in Question.objects.all() if question.active]
-    questions = reversed([question for question in Question.objects.all() if not question.active])
+    questions = [question for question in Question.objects.all() if not question.active]
+    if len(questions) < 1:
+        questions = None
+    else:
+        questions = reversed(questions)
     context = {
         'message': get_message(request),
         'current_questions': current_questions,
