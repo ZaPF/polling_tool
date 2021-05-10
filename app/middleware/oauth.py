@@ -4,7 +4,7 @@ from authlib.oauth2.rfc6749 import OAuth2Token
 from django.shortcuts import redirect
 from django.utils.deprecation import MiddlewareMixin
 from app import settings
-from app import views
+from polls import views
 
 
 class OAuthMiddleware(MiddlewareMixin):
@@ -34,7 +34,7 @@ class OAuthMiddleware(MiddlewareMixin):
                 redirect_uri = request.session.pop('redirect_uri', None)
                 if redirect_uri is not None:
                     return redirect(redirect_uri)
-                return redirect(views.index)
+                return redirect(views.open_polls)
 
         if request.session.get('token', None) is not None:
             current_user = self.get_current_user(sso_client, request)
