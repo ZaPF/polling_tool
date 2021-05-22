@@ -9,15 +9,15 @@ from .models import Question, Choice, Vote, Uni
 def get_message(request):
     if request.session.get('uni') is None:
         if request.session.get('user') is None:
-            msg = f"Hallo, du bist nicht eingeloggt und daher nicht stimmberechtigt. Melde dich im ZaPF-Auth an, falls du abstimmen können möchtest."
+            msg = f"Hallo. Du bist nicht eingeloggt und daher nicht stimmberechtigt. Melde dich im ZaPF-Auth an, falls du abstimmen können möchtest."
         else:
-            msg = f"Hallo {request.session['user']['full_name']}, du bist nicht für die ZaPF angemeldet und daher nicht stimmberechtigt."
+            msg = f"Hallo {request.session['user']['firstName']}, du bist nicht für die ZaPF angemeldet und daher nicht stimmberechtigt."
     elif not request.session['confirmed']:
-        msg = f"Hallo {request.session['user']['full_name']}, deine Fachschaft hat dich nicht bestätigt und du bist daher nicht stimmberechtigt."
+        msg = f"Hallo {request.session['user']['firstName']}, deine Fachschaft hat dich nicht bestätigt und du bist daher nicht stimmberechtigt."
     elif request.session['uni'] == 88:
-        msg = f"Hallo {request.session['user']['full_name']}, du bist als alter Sack angemeldet und daher nicht stimmberechtigt."
+        msg = f"Hallo {request.session['user']['firstName']}, du bist als alter Sack angemeldet und daher nicht stimmberechtigt."
     else:
-        msg = f"Hallo {request.session['user']['full_name']}, du bist für {request.session['unis'][str(request.session['uni'])]} wahlberechtigt."
+        msg = f"Hallo {request.session['user']['firstName']}, du bist für {request.session['unis'][str(request.session['uni'])]} wahlberechtigt."
     return msg
 
 def results(request):
@@ -71,7 +71,7 @@ def vote(request, question_id):
             'message': get_message(request),
             'question': question,
             'unis': request.session['unis'],
-            'error_message': "Du bist nicht stimmberechtigt",
+            'error_message': "Du bist nicht stimmberechtigt.",
         }
         print(context)
         # Redisplay the question voting form.
