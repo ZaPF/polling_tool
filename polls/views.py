@@ -55,6 +55,17 @@ def vote(request, question_id):
 
     question = get_object_or_404(Question, pk=question_id)
     
+    if not question.active:
+        context = {
+            'message': get_message(request),
+            'question': question,
+            'unis': request.session['unis'],
+            'error_message': "Diese Abstimmung ist geschlossen.",
+        }
+        print(context)
+        # Redisplay the question voting form.
+        return render(request, 'polls/vote.html', context)
+
     if not request.session['confirmed']:
         context = {
             'message': get_message(request),
