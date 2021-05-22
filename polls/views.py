@@ -80,8 +80,14 @@ def vote(request, question_id):
         # Redisplay the question voting form.
         return render(request, 'polls/vote.html', context)
     else:
-        new_vote, created = Vote.objects.get_or_create(uni=uni, defaults={'choice': selected_choice})
-        new_vote.choice = selected_choice
+        votes = Vote.objects.filter(choice__question = question, uni = uni)
+        if len(votes) > 1:
+            raise Exception("Multiple Votes detected")
+        elif len(votes) == 1:
+            new_vote = votes[0]
+            new_vote.choice = selected_choice
+        else:
+            new_vote, created = votes.get_or_create(uni=uni, defaults={'choice': selected_choice})   
         new_vote.save()
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a
