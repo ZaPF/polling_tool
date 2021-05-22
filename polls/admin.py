@@ -8,7 +8,7 @@ class ChoiceInline(admin.StackedInline):
     extra = 3
 
 class QuestionAdmin(admin.ModelAdmin):
-    fields = ['active', 'question_text']
+    fields = ['active','question_title', 'question_text']
     inlines = [ChoiceInline]
 
 admin.site.register(Question, QuestionAdmin)

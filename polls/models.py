@@ -2,7 +2,8 @@ from django.db import models
 
 # Create your models here.
 class Question(models.Model):
-    question_text = models.CharField(max_length=200)
+    question_title = models.CharField(max_length=200)
+    question_text = models.TextField()
     active = models.BooleanField(default=True)
 
     def __str__(self):
