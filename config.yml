@@ -7,6 +7,7 @@ django:
   allowed_hosts:
     - 'localhost'
     - '127.0.0.1'
+  static_root: './static_root'
 databases:
   default:
     ENGINE: 'django.db.backends.sqlite3'
