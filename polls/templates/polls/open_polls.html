@@ -1,21 +1,33 @@
-<h1>Aktuell offene Abstimmungen</h1>
-<p>{{ message }}</p>
+{% extends "polls/base.html" %}
+
+{% block title %}Offene Abstimmungen ‒ Digital-ZaPF Abstimmungstool{% endblock %}
+
+{% block shorttitle %}Aktuell offene Abstimmungen{% endblock %}
+
+{% block content %}
+
+<div class="alert alert-info">{{ message }}</div>
 {% if questions %}
-    <ul>
     {% for question in questions %}
-        <li>{{ question.question_text }}
+    <div class='card mb-3'>
+        <div class='card-body'>
+            <h3 class="card-title">{{ question.question_title }}</h3>
             {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+            <p class="card-text">{{ question.question_text }}</p>
+        </div>
+        <div class="card-footer bg-white">
             <form action="{% url 'polls:vote' question.id %}" method="post">
                 {% csrf_token %}
                 {% for choice in question.choices.all %}
                     <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
                     <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
                 {% endfor %}
-                <input type="submit" value="Vote">
+                <input type="submit" value="Abstimmen">
             </form>
-        </li>
+        </div>
+    </div>
     {% endfor %}
-    </ul>
 {% else %}
-    <p>No results are available.</p>
+    <p>Es sind aktuell keine Abstimmungen offen.</p>
 {% endif %}
+{% endblock %}

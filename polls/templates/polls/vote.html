@@ -1,16 +1,26 @@
-<h1>Abstimmen</h1>
-<p>{{ message }}</p>
+{% extends "polls/base.html" %}
+
+{% block title %}Abstimmen ‒ Digital-ZaPF Abstimmungstool{% endblock %}
+
+{% block shorttitle %}Abstimmen{% endblock %}
+
+{% block content %}
+<div class="alert alert-info">{{ message }}</div>
 {% if question %}
-    <h2>{{ question.question_text }}</h2>
-    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-    <form action="{% url 'polls:vote' question.id %}" method="post">
-        {% csrf_token %}
-        {% for choice in question.choices.all %}
-            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
-        {% endfor %}
-        <input type="submit" value="Vote">
-    </form>
+    <div class="question">
+        <h3>{{ question.question_title }}</h3>
+        <p>{{ question.question_text }}</p>
+        {% if error_message %}<div class="alert alert-danger">{{ error_message }}</div>{% endif %}
+        <form action="{% url 'polls:vote' question.id %}" method="post">
+            {% csrf_token %}
+            {% for choice in question.choices.all %}
+                <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+            {% endfor %}
+            <input type="submit" value="Abstimmen">
+        </form>
+    </div>    
 {% else %}
     <p>No poll is selected. <a href="{% url 'polls:open_polls' %}">Click here to see available polls.</a></p>
 {% endif %}
+{% endblock %}

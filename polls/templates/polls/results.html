@@ -1,50 +1,67 @@
-<h1>Laufende Abstimmungen</h1>
-<p>{{ message }}</p>
+{% extends "polls/base.html" %}
+
+{% block title %}Ergebnisse ‒ Digital-ZaPF Abstimmungstool{% endblock %}
+
+{% block shorttitle %}Ergebnisse{% endblock %}
+
+{% block content %}
+<div class="alert alert-info">{{ message }}</div>
+
+<h2>Laufende Abstimmungen</h2>
 {% if current_questions %}
-    <p>
     {% for question in current_questions %}
-        <h2>{{ question.question_text }}</h2>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h3 class="card-title">{{ question.question_title }}</h3>
+            <p class="card-text">{{ question.question_text }}</p>
+        </div>
         {% if question.choices %}
-            <ul>
+            <ul class="list-group list-group-flush">
                 {% for choice in question.choices.all %}
-                    <li>{{ choice.votes.all | length }} | {{ choice.choice_text }}</li>
+                <li class="list-group-item"><span class="badge bg-primary rounded-pill">{{ choice.votes.all | length }}</span> {{ choice.choice_text }}
                     {% if choice.votes %}
-                        <ul>
+                        <ul class="votes">
                             {% for vote in choice.votes.all %}
                                 <li>{{ vote.uni }}</li>
                             {% endfor %}
                         </ul>
                     {% endif %}
+                    </li>
                 {% endfor %}
             </ul>
         {% endif %}
+    </div>
     {% endfor %}
-    </p>
 {% else %}
-    <p>No results are available.</p>
+    <p>Es sind aktuell keine Abstimmungen offen.</p>
 {% endif %}
 
-<h1>Abgeschlossene Abstimmungen</h1>
+<h2>Abgeschlossene Abstimmungen</h2>
 {% if questions %}
-    <p>
     {% for question in questions %}
-        <h2>{{ question.question_text }}</h2>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h3 class="card-title">{{ question.question_title }}</h3>
+            <p class="card-text">{{ question.question_text }}</p>
+        </div>
         {% if question.choices %}
-            <ul>
+            <ul class="list-group list-group-flush">
                 {% for choice in question.choices.all %}
-                    <li>{{ choice.votes.all | length }} | {{ choice.choice_text }}</li>
+                <li class="list-group-item"><span class="badge bg-primary rounded-pill">{{ choice.votes.all | length }}</span> {{ choice.choice_text }}
                     {% if choice.votes %}
-                        <ul>
+                        <ul class="votes">
                             {% for vote in choice.votes.all %}
                                 <li>{{ vote.uni }}</li>
                             {% endfor %}
                         </ul>
                     {% endif %}
+                    </li>
                 {% endfor %}
             </ul>
         {% endif %}
+    </div>
     {% endfor %}
-    </p>
 {% else %}
-    <p>No results are available.</p>
+    <p>Es sind noch keine Abstimmungen abgeschlossen worden.</p>
 {% endif %}
+{% endblock %}
