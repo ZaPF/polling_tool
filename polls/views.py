@@ -1,15 +1,14 @@
 from django.shortcuts import render, get_object_or_404
-from django.template import loader
 from django.urls import reverse
 
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 
 from .models import Question, Choice, Vote, Uni
 
 def get_message(request):
     if request.session.get('uni') is None:
         if request.session.get('user') is None:
-            msg = f"Hallo. Du bist nicht eingeloggt und daher nicht stimmberechtigt. Melde dich im ZaPF-Auth an, falls du abstimmen können möchtest."
+            msg = "Hallo. Du bist nicht eingeloggt und daher nicht stimmberechtigt. Melde dich im ZaPF-Auth an, falls du abstimmen können möchtest."
         else:
             msg = f"Hallo {request.session['user']['firstName']}, du bist nicht für die ZaPF angemeldet und daher nicht stimmberechtigt."
     elif not request.session['confirmed']:
