@@ -19,7 +19,7 @@ def get_message(request):
         if uni.voting_rights:
             msg = f"Hallo {request.session['user']['firstName']}, du bist für {request.session['unis'][str(request.session['uni'])]} wahlberechtigt."
         else:
-            msg = f"Hallo {request.session['user']['firstName']}, du als Teil einer nicht stimmberechtigten Teilnehmikagruppe angemeldet und daher nicht stimmberechtigt."
+            msg = f"Hallo {request.session['user']['firstName']}, du bist als Teil einer nicht stimmberechtigten Teilnehmikagruppe angemeldet und daher nicht stimmberechtigt."
     return msg
 
 def results(request):
