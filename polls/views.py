@@ -14,10 +14,12 @@ def get_message(request):
             msg = f"Hallo {request.session['user']['firstName']}, du bist nicht für die ZaPF angemeldet und daher nicht stimmberechtigt."
     elif not request.session['confirmed']:
         msg = f"Hallo {request.session['user']['firstName']}, deine Fachschaft hat dich nicht bestätigt und du bist daher nicht stimmberechtigt."
-    elif request.session['uni'] == 88:
-        msg = f"Hallo {request.session['user']['firstName']}, du bist als alter Sack angemeldet und daher nicht stimmberechtigt."
     else:
-        msg = f"Hallo {request.session['user']['firstName']}, du bist für {request.session['unis'][str(request.session['uni'])]} wahlberechtigt."
+        uni, created = Uni.objects.get_or_create(uni_id=request.session['uni'], defaults={'uni_name': request.session['unis'][str(request.session['uni'])]},)
+        if uni.voting_rights:
+            msg = f"Hallo {request.session['user']['firstName']}, du bist für {request.session['unis'][str(request.session['uni'])]} wahlberechtigt."
+        else:
+            msg = f"Hallo {request.session['user']['firstName']}, du als Teil einer nicht stimmberechtigten Teilnehmikagruppe angemeldet und daher nicht stimmberechtigt."
     return msg
 
 def results(request):

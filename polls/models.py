@@ -19,6 +19,7 @@ class Choice(models.Model):
 class Uni(models.Model):
     uni_id = models.IntegerField(unique=True, primary_key=True)
     uni_name = models.CharField(max_length=200)
+    voting_rights = models.BooleanField(default=True)
     
     def __str__(self):
         return self.uni_name
