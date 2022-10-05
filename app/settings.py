@@ -19,7 +19,7 @@ import yaml
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Read config
-with open(BASE_DIR / "config.yml", "r") as ymlfile:
+with open(BASE_DIR / "config.yml") as ymlfile:
     cfg = yaml.load(ymlfile, Loader=yaml.SafeLoader)
 
 # Quick-start development settings - unsuitable for production
