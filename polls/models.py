@@ -16,15 +16,17 @@ class Choice(models.Model):
     def __str__(self):
         return self.choice_text
 
-class Uni(models.Model):
-    uni_id = models.IntegerField(unique=True, primary_key=True)
-    uni_name = models.CharField(max_length=200)
+class User(models.Model):
+    user_name = models.CharField(max_length=200, unique=True, primary_key=True)
     voting_rights = models.BooleanField(default=True)
     
     def __str__(self):
-        return self.uni_name
-
-class Vote(models.Model):
+        return self.user_name
+        
+class VoteUser(models.Model):
     choice = models.ForeignKey(Choice, on_delete=models.CASCADE, related_name='votes')
-    uni = models.ForeignKey(Uni, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     
+class Vote(VoteUser):
+    class Meta:
+        proxy = True

@@ -18,15 +18,7 @@
         {% if question.choices %}
             <ul class="list-group list-group-flush">
                 {% for choice in question.choices.all %}
-                <li class="list-group-item"><span class="badge bg-primary rounded-pill">{{ choice.votes.all | length }}</span> {{ choice.choice_text }}
-                    {% if choice.votes %}
-                        <ul class="votes">
-                            {% for vote in choice.votes.all %}
-                                <li>{{ vote.uni }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                    </li>
+                <li class="list-group-item"><span class="badge bg-primary rounded-pill">{{ choice.votes.all | length }}</span> {{ choice.choice_text }}</li>
                 {% endfor %}
             </ul>
         {% endif %}
@@ -47,15 +39,7 @@
         {% if question.choices %}
             <ul class="list-group list-group-flush">
                 {% for choice in question.choices.all %}
-                <li class="list-group-item"><span class="badge bg-primary rounded-pill">{{ choice.votes.all | length }}</span> {{ choice.choice_text }}
-                    {% if choice.votes %}
-                        <ul class="votes">
-                            {% for vote in choice.votes.all %}
-                                <li>{{ vote.uni }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                    </li>
+                <li class="list-group-item"><span class="badge bg-primary rounded-pill">{{ choice.votes.all | length }}</span> {{ choice.choice_text }}</li>
                 {% endfor %}
             </ul>
         {% endif %}

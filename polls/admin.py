@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Choice, Question, Vote, Uni
+from .models import Choice, Question, Vote, User
 
 class ChoiceInline(admin.StackedInline):
     model = Choice
@@ -13,4 +13,4 @@ class QuestionAdmin(admin.ModelAdmin):
 
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Vote)
-admin.site.register(Uni)
+admin.site.register(User)
